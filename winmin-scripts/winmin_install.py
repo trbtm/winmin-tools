@@ -7,7 +7,7 @@ import socket
 
 def createvm(vm):
 
-  subprocess.call("sudo qemu-img create -f qcow2 -F raw -b /var/lib/libvirt/images/winmin-base.img /var/lib/libvirt/images/{}.qcow2".format(vm),shell=True)
+  subprocess.call("sudo qemu-img create -f qcow2 -F qcow2 -b /var/lib/libvirt/images/winmin-base.qcow2 /var/lib/libvirt/images/{}.qcow2".format(vm),shell=True)
   subprocess.call("virt-install --virt-type=kvm --name={} --ram 4096 --vcpus 4 --hvm --network network=default,model=virtio --graphics spice,listen=socket --disk /var/lib/libvirt/images/{}.qcow2,bus=virtio,cache=none,io=native --boot=hd --video qxl --noautoconsole --os-variant win10".format(vm,vm),shell=True)
 
   print("Booting new vm")
